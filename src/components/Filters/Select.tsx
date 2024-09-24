@@ -1,11 +1,31 @@
 import React, { useState } from 'react';
+import { useAppContext } from '../../screens/Home/Home';
+const Select = () => {
+    const {
+        selectedRegion,
+        setSelectedRegion,
+        countries,
+        setPage,
+        selectedSubRegion,
+        setSelectedSubRegion,
+        setSelectedPopulationRange,
+        selectedPopulationRange,
+        setSortBy,
+        sortBy,
+        setSortOrder,
+        sortOrder,
+    } = useAppContext();
 
-const Select = ({ page, setPage }) => {
-    const [selectedRegion, setSelectedRegion] = useState('');
-    const [selectedSubRegion, setSelectedSubRegion] = useState('');
     const filterText = '';
     const defaultValue = 'Todas as regiões';
-    const options: any[] = [];
+
+    const regions = Array.from(
+        new Set(countries.map((country) => country.region))
+    ).filter(Boolean);
+
+    const subRegions = Array.from(
+        new Set(countries.map((country) => country.subregion))
+    ).filter(Boolean);
 
     const handleRegionChange = (
         event: React.ChangeEvent<HTMLSelectElement>
@@ -14,6 +34,35 @@ const Select = ({ page, setPage }) => {
         setSelectedSubRegion(''); // Reseta o filtro de sub-região quando a região muda
         setPage(1); // Reseta para página 1 quando região muda
     };
+
+    const handleSubRegionChange = (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => {
+        setSelectedSubRegion(event.target.value); // Atualiza a seleção da sub-região
+        setPage(1); // Reseta para página 1 quando sub-região muda
+    };
+
+    const handlePopulationChange = (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => {
+        setSelectedPopulationRange(event.target.value);
+        setPage(1); // Reseta para página 1 quando filtro de população muda
+    };
+
+    const handleSortOrderChange = (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => {
+        setSortOrder(event.target.value);
+        setPage(1); // Reseta para página 1 quando ordenação muda
+    };
+
+    const handleSortByChange = (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => {
+        setSortBy(event.target.value); // Define se a ordenação será por nome ou população
+        setPage(1); // Reseta para página 1 quando critério de ordenação muda
+    };
+
     return (
         <div className='grid grid-cols-1 md:grid-cols-2 flex-col gap-2 items-center'>
             <div className='flex flex-row w-[70%] justify-evenly'>
@@ -25,7 +74,7 @@ const Select = ({ page, setPage }) => {
                     onChange={handleRegionChange}
                 >
                     <option value=''>{defaultValue}</option>
-                    {options.map((region, index) => (
+                    {regions?.map((region, index) => (
                         <option key={index} value={region}>
                             {region}
                         </option>
@@ -35,31 +84,29 @@ const Select = ({ page, setPage }) => {
             {/* Filtro por sub-região */}
             <div>
                 <div className='flex flex-row w-[70%] justify-evenly'>
-                    <label htmlFor='subregion-select'>
-                        Sub-região:{' '}
-                    </label>
+                    <label htmlFor='subregion-select'>Sub-região: </label>
                     <select
                         className='select select-bordered select-sm w-full max-w-xs'
                         id='subregion-select'
-                        // // //   value={selectedSubRegion}
-                        // //   onChange={handleSubRegionChange}
-                        //   disabled={!selectedRegion}
+                        value={selectedSubRegion}
+                        onChange={handleSubRegionChange}
+                        disabled={!selectedRegion}
                     >
                         <option value=''>Todas as sub-regiões</option>
-                        {/* {subRegions
-                  .filter((subregion) => {
-                      const belongsToSelectedRegion = countries.some(
-                          (country) =>
-                              country.subregion === subregion &&
-                              country.region === selectedRegion
-                      );
-                      return belongsToSelectedRegion;
-                  })
-                  .map((subregion, index) => (
-                      <option key={index} value={subregion}>
-                          {subregion}
-                      </option>
-                  ))} */}
+                        {subRegions
+                            .filter((subregion) => {
+                                const belongsToSelectedRegion = countries.some(
+                                    (country) =>
+                                        country.subregion === subregion &&
+                                        country.region === selectedRegion
+                                );
+                                return belongsToSelectedRegion;
+                            })
+                            .map((subregion, index) => (
+                                <option key={index} value={subregion}>
+                                    {subregion}
+                                </option>
+                            ))}
                     </select>
                 </div>
             </div>
@@ -70,8 +117,8 @@ const Select = ({ page, setPage }) => {
                     <select
                         className='select select-bordered select-sm w-full max-w-xs'
                         id='population-select'
-                        //   value={selectedPopulationRange}
-                        //   onChange={handlePopulationChange}
+                        value={selectedPopulationRange}
+                        onChange={handlePopulationChange}
                     >
                         <option value=''>Todas as populações</option>
                         <option value='<1M'>Menos de 1M</option>
@@ -81,7 +128,6 @@ const Select = ({ page, setPage }) => {
                     </select>
                 </div>
             </div>
-            {/* Filtro de busca */}
 
             <div>
                 <div className='flex flex-row  w-[70%] justify-evenly'>
@@ -89,8 +135,8 @@ const Select = ({ page, setPage }) => {
                     <select
                         className='select select-bordered select-sm w-full max-w-xs'
                         id='sort-by-select'
-                        //   value={sortBy}
-                        //   onChange={handleSortByChange}
+                        value={sortBy}
+                        onChange={handleSortByChange}
                     >
                         <option value='name'>Nome</option>
                         <option value='population'>População</option>
@@ -105,8 +151,8 @@ const Select = ({ page, setPage }) => {
                     <select
                         className='select select-bordered select-sm w-full max-w-xs'
                         id='sort-order-select'
-                        //   value={sortOrder}
-                        //   onChange={handleSortOrderChange}
+                          value={sortOrder}
+                          onChange={handleSortOrderChange}
                     >
                         <option value='asc'>Crescente</option>
                         <option value='desc'>Decrescente</option>
