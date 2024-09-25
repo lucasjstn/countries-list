@@ -4,13 +4,13 @@ import { useFetch } from '../../hooks/useFetch';
 import CountryList from '../../components/CountryList';
 import { FilterCountries } from '../../../helpers/FilterCountries.tsx';
 
-export const AppContext = createContext();
+export const AppContext = createContext('');
 export const useAppContext = () => useContext(AppContext);
 const URL = 'https://restcountries.com/v3.1/all';
 
 const Home = () => {
     const [page, setPage] = useState(1);
-    const { loading, data: countries, isError } = useFetch(URL);
+    const { loading, data: countries } = useFetch(URL);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedRegion, setSelectedRegion] = useState('');
     const [selectedSubRegion, setSelectedSubRegion] = useState('');
@@ -18,7 +18,7 @@ const Home = () => {
     const [sortOrder, setSortOrder] = useState('asc');
     const [sortBy, setSortBy] = useState('name'); // Novo estado para controlar o critério de ordenação
 
-    const itemsPerPage = 10;
+    const itemsPerPage = 16;
     const offset = (page - 1) * itemsPerPage;
 
     let filteredCountries = FilterCountries(
@@ -29,7 +29,7 @@ const Home = () => {
         selectedPopulationRange
     );
 
-    filteredCountries = filteredCountries?.sort((a, b) => {
+    filteredCountries = filteredCountries?.sort((a: any, b: any) => {
         if (sortBy === 'name') {
             return sortOrder === 'asc'
                 ? a.translations.por.common.localeCompare(
