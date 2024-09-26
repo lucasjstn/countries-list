@@ -19,10 +19,10 @@ const CountryDetails = () => {
 
     const country = countries[0];
     return (
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center py-6 gap-6'>
             <img
                 src={country.flags.png}
-                className='w-full md:w-[50vw] object-cover'
+                className='object-contain'
                 alt={country.translations.por.common}
             />
             <h1 className='text-3xl font-bold'>

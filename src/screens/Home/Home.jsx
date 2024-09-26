@@ -18,7 +18,7 @@ const Home = () => {
     const [sortOrder, setSortOrder] = useState('asc');
     const [sortBy, setSortBy] = useState('name'); // Novo estado para controlar o critério de ordenação
 
-    const itemsPerPage = 16;
+    const itemsPerPage = 9;
     const offset = (page - 1) * itemsPerPage;
 
     let filteredCountries = FilterCountries(
