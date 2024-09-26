@@ -8,7 +8,6 @@ const Navbar = () => {
 
     const toggleShowElement = () => {
         setShowElement(!showElement);
-        console.log(showElement);
     };
     return (
         <nav className='flex w-full flex-col justify-center items-center gap-8 border rounded shadow-lg py-3  h-46 '>
