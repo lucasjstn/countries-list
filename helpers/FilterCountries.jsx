@@ -5,6 +5,13 @@ export const FilterCountries = (
     selectedSubRegion,
     selectedPopulationRange
 ) => {
+    // console.log(searchTerm);
+    // console.log(selectedRegion)
+    // console.log(selectedSubRegion)
+    // console.log(selectedPopulationRange);
+    
+    
+    
     let filteredCountries = countries?.filter((country) => {
         const matchesSearch = country.translations.por.common
             .toLowerCase()

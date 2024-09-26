@@ -1,8 +1,11 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar/index.jsx';
 import { useFetch } from '../../hooks/useFetch.js';
 import CountryList from '../../components/CountryList/index.jsx';
 import { FilterCountries } from '../../../helpers/FilterCountries.jsx';
+
+import { getCountries } from '../../features/filter/filterSlice.js';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const AppContext = createContext('');
 export const useAppContext = () => useContext(AppContext);
@@ -10,13 +13,16 @@ const URL = 'https://restcountries.com/v3.1/all';
 
 const Home = () => {
     const [page, setPage] = useState(1);
-    const { loading, data: countries } = useFetch(URL);
+    const { loading, data: acountries } = useFetch(URL);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedRegion, setSelectedRegion] = useState('');
     const [selectedSubRegion, setSelectedSubRegion] = useState('');
     const [selectedPopulationRange, setSelectedPopulationRange] = useState('');
     const [sortOrder, setSortOrder] = useState('asc');
     const [sortBy, setSortBy] = useState('name'); // Novo estado para controlar o critério de ordenação
+
+    const { countries, isLoading} = useSelector((state) => state.filter);
+    const dispatch = useDispatch();
 
     const itemsPerPage = 9;
     const offset = (page - 1) * itemsPerPage;
@@ -54,6 +60,10 @@ const Home = () => {
         offset + itemsPerPage
     );
     const maxPage = Math.ceil(filteredCountries?.length / itemsPerPage);
+
+    useEffect(() => {
+        dispatch(getCountries());
+    }, []);
 
     
 

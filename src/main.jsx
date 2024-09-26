@@ -7,6 +7,9 @@ import './index.css';
 import Home from './screens/Home/Home.jsx';
 import CountryDetails from './screens/CountryDetails/CountryDetails.jsx';
 
+import { store } from './store.js';
+import { Provider } from 'react-redux';
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -22,6 +25,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <RouterProvider router={router} />
+        <Provider store={store}>
+            <RouterProvider router={router} />
+        </Provider>
     </StrictMode>
 );
