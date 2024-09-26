@@ -3,7 +3,7 @@ import { CiSearch } from 'react-icons/ci';
 import { useAppContext } from '../../screens/Home/Home';
 const SearchInput = () => {
     const { searchTerm, setSearchTerm, setPage } = useAppContext();
-    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSearch = (event) => {
         setSearchTerm(event.target.value);
         setPage(1); // Reseta para página 1 quando busca
     };

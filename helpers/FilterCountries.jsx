@@ -32,7 +32,7 @@ export const FilterCountries = (
     return filteredCountries;
 };
 
-const filterByPopulation = (population: number, selectedPopulationRange) => {
+const filterByPopulation = (population, selectedPopulationRange) => {
     if (selectedPopulationRange === '<1M') {
         return population < 1000000;
     } else if (selectedPopulationRange === '1M-10M') {

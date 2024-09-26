@@ -1,8 +1,8 @@
 import { createContext, useContext, useState } from 'react';
-import Navbar from '../../components/Navbar';
-import { useFetch } from '../../hooks/useFetch';
-import CountryList from '../../components/CountryList';
-import { FilterCountries } from '../../../helpers/FilterCountries.tsx';
+import Navbar from '../../components/Navbar/index.jsx';
+import { useFetch } from '../../hooks/useFetch.js';
+import CountryList from '../../components/CountryList/index.jsx';
+import { FilterCountries } from '../../../helpers/FilterCountries.jsx';
 
 export const AppContext = createContext('');
 export const useAppContext = () => useContext(AppContext);
@@ -29,7 +29,7 @@ const Home = () => {
         selectedPopulationRange
     );
 
-    filteredCountries = filteredCountries?.sort((a: any, b: any) => {
+    filteredCountries = filteredCountries?.sort((a, b) => {
         if (sortBy === 'name') {
             return sortOrder === 'asc'
                 ? a.translations.por.common.localeCompare(

@@ -1,11 +1,11 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App.tsx';
+import App from './App.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import './index.css';
-import Home from './screens/Home/Home.tsx';
-import CountryDetails from './screens/CountryDetails/CountryDetails.tsx';
+import Home from './screens/Home/Home.jsx';
+import CountryDetails from './screens/CountryDetails/CountryDetails.jsx';
 
 const router = createBrowserRouter([
     {
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     },
 ]);
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById('root')).render(
     <StrictMode>
         <RouterProvider router={router} />
     </StrictMode>

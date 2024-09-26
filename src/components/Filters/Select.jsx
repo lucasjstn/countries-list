@@ -27,38 +27,28 @@ const Select = () => {
         new Set(countries.map((country) => country.subregion))
     ).filter(Boolean);
 
-    const handleRegionChange = (
-        event: React.ChangeEvent<HTMLSelectElement>
-    ) => {
+    const handleRegionChange = (event) => {
         setSelectedRegion(event.target.value); // Atualiza a seleção da região
         setSelectedSubRegion(''); // Reseta o filtro de sub-região quando a região muda
         setPage(1); // Reseta para página 1 quando região muda
     };
 
-    const handleSubRegionChange = (
-        event: React.ChangeEvent<HTMLSelectElement>
-    ) => {
+    const handleSubRegionChange = (event) => {
         setSelectedSubRegion(event.target.value); // Atualiza a seleção da sub-região
         setPage(1); // Reseta para página 1 quando sub-região muda
     };
 
-    const handlePopulationChange = (
-        event: React.ChangeEvent<HTMLSelectElement>
-    ) => {
+    const handlePopulationChange = (event) => {
         setSelectedPopulationRange(event.target.value);
         setPage(1); // Reseta para página 1 quando filtro de população muda
     };
 
-    const handleSortOrderChange = (
-        event: React.ChangeEvent<HTMLSelectElement>
-    ) => {
+    const handleSortOrderChange = (event) => {
         setSortOrder(event.target.value);
         setPage(1); // Reseta para página 1 quando ordenação muda
     };
 
-    const handleSortByChange = (
-        event: React.ChangeEvent<HTMLSelectElement>
-    ) => {
+    const handleSortByChange = (event) => {
         setSortBy(event.target.value); // Define se a ordenação será por nome ou população
         setPage(1); // Reseta para página 1 quando critério de ordenação muda
     };
@@ -151,8 +141,8 @@ const Select = () => {
                     <select
                         className='select select-bordered select-sm w-full max-w-xs'
                         id='sort-order-select'
-                          value={sortOrder}
-                          onChange={handleSortOrderChange}
+                        value={sortOrder}
+                        onChange={handleSortOrderChange}
                     >
                         <option value='asc'>Crescente</option>
                         <option value='desc'>Decrescente</option>
