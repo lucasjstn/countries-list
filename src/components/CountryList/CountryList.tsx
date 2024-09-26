@@ -5,24 +5,24 @@ import { Link } from 'react-router-dom';
 const CountryList = () => {
     const { visibleCountries, page, setPage } = useAppContext();
     return (
-        <section className='flex flex-col items-center md:grid md:grid-cols-4 gap-4'>
+        <section className='flex flex-col items-center md:grid md:grid-cols-4 gap-6'>
             {visibleCountries?.map((country, index) => (
                 <Link
                     key={index}
-                    className='card w-48 max-h-86 bg-base-100 overflow-hidden  my-2 shadow-xl '
+                    className='card w-64 h-66 bg-base-100 overflow-hidden my-4 shadow-xl flex flex-col items-center transition-transform duration-300 hover:scale-105'
                     to={`/country/${country.ccn3}`}
                 >
-                    <img
-                        src={country.flags.png}
-                        className='w-full object-cover'
-                        alt={country.translations.por.common}
-                    />
-
-                    <div className='card-body'>
-                        <h2 className='card-title'>
+                    <div className='w-full h-48 flex justify-center items-center '>
+                        <img
+                            src={country.flags.png}
+                            className='w-[70%] h-[70%] object-contain'
+                            alt={country.translations.por.common}
+                        />
+                    </div>
+                    <div className='card-body text-center'>
+                        <h2 className='card-title text-lg font-semibold'>
                             {country.translations.por.common}
                         </h2>
-                        <p>Populacão: {country.population}</p>
                     </div>
                 </Link>
             ))}
