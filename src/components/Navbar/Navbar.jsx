@@ -31,6 +31,10 @@ const Navbar = ({ setPage }) => {
         sessionStorage.setItem('showElement', !showElement);
     };
 
+    const handleTitleClick = () => {
+        setPage(1);
+        sessionStorage.setItem('page', 1);
+    };
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
     }, [theme]);
@@ -38,7 +42,7 @@ const Navbar = ({ setPage }) => {
     return (
         <nav className='flex w-full flex-col justify-center items-center gap-8 border rounded shadow-lg py-3  h-46 '>
             <div className=' md:items-center flex flex-row items-center justify-center h-full'>
-                <Link to={'/'} onClick={() => setPage(1)}>
+                <Link to={'/'} onClick={handleTitleClick}>
                     <h1 className='uppercase text-4xl'>Lista de Países</h1>
                 </Link>
             </div>
