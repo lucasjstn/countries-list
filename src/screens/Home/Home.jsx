@@ -1,8 +1,9 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar/index.jsx';
 import { useFetch } from '../../hooks/useFetch.js';
 import CountryList from '../../components/CountryList/index.jsx';
 import { FilterCountries } from '../../../helpers/FilterCountries.jsx';
+import { useParams } from 'react-router-dom';
 
 export const AppContext = createContext('');
 export const useAppContext = () => useContext(AppContext);
@@ -11,41 +12,46 @@ const URL = 'https://restcountries.com/v3.1/all';
 const Home = () => {
     const [page, setPage] = useState(1);
     const { loading, data: countries } = useFetch(URL);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [selectedRegion, setSelectedRegion] = useState('');
-    const [selectedSubRegion, setSelectedSubRegion] = useState('');
-    const [selectedPopulationRange, setSelectedPopulationRange] = useState('');
-    const [sortOrder, setSortOrder] = useState('asc');
-    const [sortBy, setSortBy] = useState('name'); // Novo estado para controlar o critério de ordenação
+
+    const [filter, setFilter] = useState({
+        searchTerm: sessionStorage.getItem('searchTerm') || '',
+        selectedRegion: sessionStorage.getItem('region') || '',
+        selectedSubRegion: sessionStorage.getItem('subregion') || '',
+        selectedPopulationRange: sessionStorage.getItem('population') || '',
+        sortBy: sessionStorage.getItem('sortBy') || 'name',
+        sortOrder: sessionStorage.getItem('sortOrder') || 'asc',
+    });
 
     const itemsPerPage = 9;
     const offset = (page - 1) * itemsPerPage;
 
     let filteredCountries = FilterCountries(
         countries,
-        searchTerm,
-        selectedRegion,
-        selectedSubRegion,
-        selectedPopulationRange
+        filter.searchTerm,
+        filter.selectedRegion,
+        filter.selectedSubRegion,
+        filter.selectedPopulationRange
     );
 
     filteredCountries = filteredCountries?.sort((a, b) => {
-        if (sortBy === 'name') {
-            return sortOrder === 'asc'
+        if (filter.sortBy === 'name') {
+            return filter.sortOrder === 'asc'
                 ? a.translations.por.common.localeCompare(
                       b.translations.por.common
                   )
                 : b.translations.por.common.localeCompare(
                       a.translations.por.common
                   );
-        } else if (sortBy === 'population') {
-            return sortOrder === 'asc'
+        } else if (filter.sortBy === 'population') {
+            return filter.sortOrder === 'asc'
                 ? a.population - b.population
                 : b.population - a.population;
         }
 
-        if (sortBy === 'area') {
-            return sortOrder === 'asc' ? a.area - b.area : b.area - a.area;
+        if (filter.sortBy === 'area') {
+            return filter.sortOrder === 'asc'
+                ? a.area - b.area
+                : b.area - a.area;
         }
     });
 
@@ -55,7 +61,15 @@ const Home = () => {
     );
     const maxPage = Math.ceil(filteredCountries?.length / itemsPerPage);
 
-    
+    const handlePageUp = () => {
+        setPage(page + 1);
+        sessionStorage.setItem('page', page);
+    };
+
+    const handlePageDown = () => {
+        setPage(page - 1);
+        sessionStorage.setItem('page', page);
+    };
 
     return (
         <>
@@ -65,30 +79,22 @@ const Home = () => {
                     page,
                     setPage,
                     visibleCountries,
-                    searchTerm,
-                    setSearchTerm,
-                    selectedRegion,
-                    setSelectedRegion,
-                    setSelectedSubRegion,
-                    selectedSubRegion,
-                    selectedPopulationRange,
-                    setSelectedPopulationRange,
-                    setSortBy,
-                    sortBy,
-                    setSortOrder,
-                    sortOrder,
+                    filter,
+                    setFilter,
                 }}
             >
                 <main className='flex flex-col'>
                     <Navbar />
                     {loading ? (
-                        <p>Loading...</p>
+                        <div className='flex justify-center items-center h-screen'>
+                            <span className='loading loading-spinner loading-lg'></span>
+                        </div>
                     ) : (
                         <div className='flex flex-col items-center'>
                             <CountryList />
                             <div className='join'>
                                 <button
-                                    onClick={() => setPage(page - 1)}
+                                    onClick={handlePageDown}
                                     className='join-item btn'
                                     disabled={page === 1}
                                 >
@@ -98,7 +104,7 @@ const Home = () => {
                                     Página {page}
                                 </button>
                                 <button
-                                    onClick={() => setPage(page + 1)}
+                                    onClick={handlePageUp}
                                     className='join-item btn'
                                     disabled={page === maxPage}
                                 >

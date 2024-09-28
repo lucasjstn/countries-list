@@ -1,9 +1,10 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
 
 const CountryDetails = () => {
     const { countryId } = useParams();
+    const navigate = useNavigate();
     const API_URL = `https://restcountries.com/v3.1/alpha/${countryId}`;
     const { loading, isError, data: countries } = useFetch(API_URL);
     if (loading) {
@@ -25,7 +26,11 @@ const CountryDetails = () => {
             <h1 className='text-3xl font-bold'>
                 {country.translations.por.common}
             </h1>
-            {country.capital && <h3 className='text-2xl '>{country.capital.map((c) => c).join(', ')}</h3>}
+            {country.capital && (
+                <h3 className='text-2xl '>
+                    {country.capital.map((c) => c).join(', ')}
+                </h3>
+            )}
             <p>Populacão: {country?.population.toLocaleString('pt-br')}</p>
             <p>Região: {country?.region}</p>
             <p>Sub-região: {country?.subregion || 'Não possui.'}</p>
@@ -53,7 +58,7 @@ const CountryDetails = () => {
                 Código de discagem internacional:{' '}
                 {country.idd.root || 'Não possui.'}
             </p>
-            <button className='btn' onClick={() => window.history.back()}>
+            <button className='btn' onClick={() => navigate('/')}>
                 VOLTAR
             </button>
         </div>
