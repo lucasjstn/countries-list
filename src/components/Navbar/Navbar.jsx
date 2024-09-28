@@ -11,9 +11,9 @@ const themes = {
     retro: 'retro',
 };
 
-const Navbar = () => {
+const Navbar = ({ setPage }) => {
     const [theme, setTheme] = useState(
-        sessionStorage.getItem('theme') || themes.retro 
+        sessionStorage.getItem('theme') || themes.retro
     );
 
     const [showElement, setShowElement] = useState(
@@ -22,16 +22,15 @@ const Navbar = () => {
 
     const handleTheme = () => {
         const newTheme = theme === themes.retro ? themes.coffee : themes.retro;
-        sessionStorage.setItem('theme', newTheme); 
+        sessionStorage.setItem('theme', newTheme);
         setTheme(newTheme);
     };
 
     const toggleShowElement = () => {
         setShowElement(!showElement);
-        sessionStorage.setItem('showElement', !showElement); 
+        sessionStorage.setItem('showElement', !showElement);
     };
 
-    
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
     }, [theme]);
@@ -39,18 +38,17 @@ const Navbar = () => {
     return (
         <nav className='flex w-full flex-col justify-center items-center gap-8 border rounded shadow-lg py-3  h-46 '>
             <div className=' md:items-center flex flex-row items-center justify-center h-full'>
-                <Link to={'/'}>
+                <Link to={'/'} onClick={() => setPage(1)}>
                     <h1 className='uppercase text-4xl'>Lista de Países</h1>
                 </Link>
             </div>
             <label className='swap swap-rotate'>
-                
                 <input
                     type='checkbox'
                     onChange={handleTheme}
-                    checked={theme === themes.coffee} 
+                    checked={theme === themes.coffee}
                 />
-               
+
                 <BsSunFill className='swap-on h-4 w-4' />
                 <BsMoonFill className='swap-off h-4 w-4' />
             </label>

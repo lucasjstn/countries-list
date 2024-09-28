@@ -84,7 +84,7 @@ const Home = () => {
                 }}
             >
                 <main className='flex flex-col'>
-                    <Navbar />
+                    <Navbar setPage={setPage} />
                     {loading ? (
                         <div className='flex justify-center items-center h-screen'>
                             <span className='loading loading-spinner loading-lg'></span>
