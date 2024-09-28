@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
+import { ptBr } from '../../locales/pt-br';
 
 const CountryDetails = () => {
     const { countryId } = useParams();
@@ -28,7 +29,7 @@ const CountryDetails = () => {
             {country.capital && <h3 className='text-2xl '>{country.capital.map((c) => c).join(', ')}</h3>}
             <p>Populacão: {country?.population.toLocaleString('pt-br')}</p>
             <p>Região: {country?.region}</p>
-            <p>Sub-região: {country?.subregion || 'Não possui.'}</p>
+            <p>Sub-região: {ptBr.subregions[country?.subregion] || 'Não possui.'}</p>
             <p>Área: {country?.area.toLocaleString('pt-br')} km²</p>
             {country.languages && (
                 <p>

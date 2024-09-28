@@ -1,0 +1,36 @@
+export const ptBr = {
+    regions: {
+        Europe: 'Europa',
+        Antarctic: 'Antártica',
+        Americas: 'Américas',
+        Africa: 'África',
+        Asia: 'Ásia',
+        Oceania: 'Oceânia',
+    },
+    subregions: {
+        Caribbean: 'Caribenha',
+        'North America': 'América do Norte',
+        'South America': 'América do Sul',
+        'Central America': 'América Central',
+        'Western Europe': 'Europa Ocidental',
+        'Eastern Europe': 'Europa Oriental',
+        'Central Europe': 'Europa Central',
+        'Northern Europe': 'Norte Europeu',
+        'Southeast Europe': 'Sudeste Europeu',
+        'Southern Europe': 'Sul Europeu',
+        'Western Africa': 'África Ocidental',
+        'Eastern Africa': 'África Oriental',
+        'Middle Africa': 'África Central',
+        'Northern Africa': 'Norte da África' ,
+        'Southern Africa': 'Sul da África',
+        'Eastern Asia': 'Ásia Oriental',
+        'Southern Asia': 'Sul da Ásia',
+        'Central Asia': 'Ásia Central',
+        'South-Eastern Asia': 'Sudeste da Ásia',
+        'Western Asia': 'Ásia Ocidental',
+        'Polynesia': 'Polinésia',
+        'Micronesia': 'Micronésia',
+        'Melanesia': 'Melanésia',
+        'Australia and New Zealand': 'Austrália e Nova Zelândia'
+    }
+}
