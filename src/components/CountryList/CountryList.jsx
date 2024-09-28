@@ -9,18 +9,18 @@ const CountryList = () => {
             {visibleCountries?.map((country, index) => (
                 <Link
                     key={index}
-                    className='card w-64 h-66 m-h-66 bg-base-100 overflow-hidden my-4 shadow-xl flex flex-col items-center transition-transform duration-300 hover:scale-105'
+                    className='card w-64 h-[250px] bg-base-100 overflow-hidden my-4 shadow-xl flex flex-col items-center transition-transform duration-300 hover:scale-105'
                     to={`/country/${country.ccn3}`}
                 >
-                    <div className='w-full m-h-48 h-48 flex justify-center items-center '>
+                    <div className='w-full h-48 flex justify-center items-center'>
                         <img
                             src={country.flags.png}
                             className='w-[70%] h-[70%] object-contain'
                             alt={country.translations.por.common}
                         />
                     </div>
-                    <div className='card-body text-center w-full m-h-[100%]'>
-                        <h2 className='card-title text-lg font-semibold'>
+                    <div className='card-body text-center w-full flex-grow flex flex-col justify-between'>
+                        <h2 className='card-title text-lg font-semibold line-clamp-2'>
                             {country.translations.por.common}
                         </h2>
                     </div>

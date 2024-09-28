@@ -10,7 +10,9 @@ export const useAppContext = () => useContext(AppContext);
 const URL = 'https://restcountries.com/v3.1/all';
 
 const Home = () => {
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(
+        Number(sessionStorage.getItem('page')) || 1
+    );
     const { loading, data: countries } = useFetch(URL);
 
     const [filter, setFilter] = useState({
@@ -63,12 +65,12 @@ const Home = () => {
 
     const handlePageUp = () => {
         setPage(page + 1);
-        sessionStorage.setItem('page', page);
+        sessionStorage.setItem('page', page + 1);
     };
 
     const handlePageDown = () => {
         setPage(page - 1);
-        sessionStorage.setItem('page', page);
+        sessionStorage.setItem('page', page - 1);
     };
 
     return (
@@ -84,7 +86,7 @@ const Home = () => {
                 }}
             >
                 <main className='flex flex-col'>
-                    <Navbar />
+                    <Navbar setPage={setPage} />
                     {loading ? (
                         <div className='flex justify-center items-center h-screen'>
                             <span className='loading loading-spinner loading-lg'></span>
