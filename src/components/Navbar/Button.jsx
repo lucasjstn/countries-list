@@ -4,7 +4,7 @@ const Button = ({handle, showElement}) => {
     return (
         <button onClick={handle} className='btn'>
             <CiFilter className='text-2xl sm:text-3xl' />
-            {!showElement ?<IoChevronDown /> : '' }
+            {!showElement ?<IoChevronDown /> : <IoChevronDown className='rotate-180' />}
             
         </button>
     );
