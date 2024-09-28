@@ -14,6 +14,11 @@ const router = createBrowserRouter([
         errorElement: <div>404 element not found</div>,
     },
     {
+        path: '/:searchTerm?:selectedRegion?:selectedSubRegion?:selectedPopulationRange?:sortOrder?:sortBy',
+        element: <Home />,
+        errorElement: <div>404 element not found</div>,
+    },
+    {
         path: '/country/:countryId',
         element: <CountryDetails />,
         errorElement: <div>404 element not found</div>,

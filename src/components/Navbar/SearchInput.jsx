@@ -2,9 +2,13 @@ import React from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { useAppContext } from '../../screens/Home/Home';
 const SearchInput = () => {
-    const { searchTerm, setSearchTerm, setPage } = useAppContext();
+    const {  setFilter, setSearchTerm, setPage, filter } = useAppContext();
+
+    const {searchTerm } = filter;
     const handleSearch = (event) => {
-        setSearchTerm(event.target.value);
+        // setSearchTerm(event.target.value);
+        setFilter({...filter, searchTerm: event.target.value});
+        sessionStorage.setItem('searchTerm', event.target.value);
         setPage(1); // Reseta para página 1 quando busca
     };
     return (
