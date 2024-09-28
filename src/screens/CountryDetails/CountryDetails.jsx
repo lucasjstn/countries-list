@@ -14,7 +14,7 @@ const CountryDetails = () => {
         );
     }
     const country = countries[0];
-  
+
     return (
         <div className='flex flex-col items-center py-6 gap-6'>
             <img
@@ -25,11 +25,7 @@ const CountryDetails = () => {
             <h1 className='text-3xl font-bold'>
                 {country.translations.por.common}
             </h1>
-            {country.capital && (
-                <h3 className='text-2xl '>
-                    country.capital.map((c) => c).join(', ')
-                </h3>
-            )}
+            {country.capital && <h3 className='text-2xl '>{country.capital.map((c) => c).join(', ')}</h3>}
             <p>Populacão: {country?.population.toLocaleString('pt-br')}</p>
             <p>Região: {country?.region}</p>
             <p>Sub-região: {country?.subregion || 'Não possui.'}</p>
@@ -43,15 +39,20 @@ const CountryDetails = () => {
             {country.currencies && (
                 <p>
                     Moeda(s):
-                    {currencies
+                    {Object.values(country.currencies)
                         .map((currency) => currency.symbol)
                         .join(', ')}{' '}
-                    {currencies.map((currency) => currency.name).join(', ')}
+                    {Object.values(country.currencies)
+                        .map((currency) => currency.name)
+                        .join(', ')}
                 </p>
             )}
             <p>Fuso horário: {country.timezones[0]}</p>
             <p>Domínio de Internet: {country.tld[0]}</p>
-            <p>Código de discagem internacional: {country.idd.root || 'Não possui.'}</p>
+            <p>
+                Código de discagem internacional:{' '}
+                {country.idd.root || 'Não possui.'}
+            </p>
             <button className='btn' onClick={() => window.history.back()}>
                 VOLTAR
             </button>
