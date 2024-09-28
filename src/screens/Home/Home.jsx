@@ -91,7 +91,7 @@ const Home = () => {
                         <div className='flex justify-center items-center h-screen'>
                             <span className='loading loading-spinner loading-lg'></span>
                         </div>
-                    ) : (
+                    ) : filteredCountries?.length > 0 ? (
                         <div className='flex flex-col items-center'>
                             <CountryList />
                             <div className='join'>
@@ -113,6 +113,10 @@ const Home = () => {
                                     »
                                 </button>
                             </div>
+                        </div>
+                    ) : (
+                        <div className='flex flex-col items-center justify-center my-[20vh]'>
+                            <h1>Nenhum item encontrado.</h1>
                         </div>
                     )}
                 </main>
