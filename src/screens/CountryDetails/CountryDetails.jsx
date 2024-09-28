@@ -26,11 +26,11 @@ const CountryDetails = () => {
                 className='w-60 h-auto object-contain mb-8'
                 alt={country.translations.por.common}
             />
-            <h1 className='text-4xl font-bold text-gray-800 mb-4'>
+            <h1 className='text-4xl font-bold  mb-4'>
                 {country.translations.por.common}
             </h1>
             {country.capital && (
-                <h3 className='text-2xl text-gray-600 mb-2'>
+                <h3 className='text-2xl  mb-2'>
                     Capital: {country.capital.map((c) => c).join(', ')}
                 </h3>
             )}
