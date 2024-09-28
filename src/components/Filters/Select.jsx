@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../../screens/Home/Home';
+import { ptBr } from '../../locales/pt-br';
 const Select = () => {
     const { countries, setPage, filter, setFilter } = useAppContext();
 
@@ -82,7 +83,7 @@ const Select = () => {
                         <option value=''>{defaultValue}</option>
                         {regions?.map((region, index) => (
                             <option key={index} value={region}>
-                                {region}
+                                {ptBr.regions[region] || region}
                             </option>
                         ))}
                     </select>
@@ -113,7 +114,7 @@ const Select = () => {
                                 })
                                 .map((subregion, index) => (
                                     <option key={index} value={subregion}>
-                                        {subregion}
+                                        {ptBr.subregions[subregion] || subregion}
                                     </option>
                                 ))}
                         </select>
