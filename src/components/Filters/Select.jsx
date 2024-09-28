@@ -14,11 +14,11 @@ const Select = () => {
     const defaultValue = 'Todas as regiões';
 
     const regions = Array.from(
-        new Set(countries.map((country) => country.region))
+        new Set(countries?.map((country) => country.region))
     ).filter(Boolean);
 
     const subRegions = Array.from(
-        new Set(countries.map((country) => country.subregion))
+        new Set(countries?.map((country) => country.subregion))
     ).filter(Boolean);
 
     const handleRegionChange = (event) => {
@@ -70,7 +70,6 @@ const Select = () => {
 
     return (
         <form>
-            {' '}
             <div className='grid grid-cols-1 md:grid-cols-2 flex-col gap-2 items-center'>
                 <div className='flex flex-row w-[70%] justify-evenly'>
                     <label htmlFor='region-select'>Região:</label>

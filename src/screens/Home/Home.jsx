@@ -71,9 +71,6 @@ const Home = () => {
         sessionStorage.setItem('page', page);
     };
 
-    useEffect(() => {
-        console.log(sessionStorage.length);
-    }, []);
     return (
         <>
             <AppContext.Provider
@@ -89,7 +86,9 @@ const Home = () => {
                 <main className='flex flex-col'>
                     <Navbar />
                     {loading ? (
-                        <p>Loading...</p>
+                        <div className='flex justify-center items-center h-screen'>
+                            <span className='loading loading-spinner loading-lg'></span>
+                        </div>
                     ) : (
                         <div className='flex flex-col items-center'>
                             <CountryList />
