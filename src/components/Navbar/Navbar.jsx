@@ -13,7 +13,7 @@ const themes = {
 
 const Navbar = ({ setPage }) => {
     const [theme, setTheme] = useState(
-        sessionStorage.getItem('theme') || themes.retro
+        localStorage.getItem('theme') || themes.retro
     );
 
     const [showElement, setShowElement] = useState(
@@ -22,7 +22,7 @@ const Navbar = ({ setPage }) => {
 
     const handleTheme = () => {
         const newTheme = theme === themes.retro ? themes.coffee : themes.retro;
-        sessionStorage.setItem('theme', newTheme);
+        localStorage.setItem('theme', newTheme);
         setTheme(newTheme);
     };
 
