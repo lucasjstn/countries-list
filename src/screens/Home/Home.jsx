@@ -85,32 +85,36 @@ const Home = () => {
         return (
             <div className='flex flex-col items-center'>
                 <CountryList />
-                <div className='join'>
+                <div>
                     <button
-                        onClick={handlePageDown}
-                        className='join-item btn'
-                        disabled={page === 1}
+                        className='join-item btn mx-6'
+                        onClick={() => setPage(1)}
                     >
-                        «
+                        1
                     </button>
-                    <button className='join-item btn'>Página {page}</button>
+                    <div className='join'>
+                        <button
+                            onClick={handlePageDown}
+                            className='join-item btn'
+                            disabled={page === 1}
+                        >
+                            «
+                        </button>
+                        <button className='join-item btn'>Página {page}</button>
+                        <button
+                            onClick={handlePageUp}
+                            className='join-item btn'
+                            disabled={page === maxPage}
+                        >
+                            »
+                        </button>
+                    </div>
                     <button
-                        onClick={handlePageUp}
-                        className='join-item btn'
-                        disabled={page === maxPage}
+                        className='join-item btn mx-6'
+                        onClick={() => setPage(maxPage)}
                     >
-                        »
+                        {maxPage}
                     </button>
-                </div>
-                <div className='footer flex flex-row justify-center my-5'>
-                    <p>© 2024 </p>
-                    <a href='https://github.com/lucasjstn/countries-list'>
-                        Github
-                    </a>
-                    <p> | </p>
-                    <a href='https://www.linkedin.com/in/lucasjstn/'>
-                        Linkedin
-                    </a>
                 </div>
             </div>
         );
@@ -140,6 +144,16 @@ const Home = () => {
                         showNoItemFound()
                     )}
                 </main>
+                <div className='footer flex flex-row justify-center my-5'>
+                    <p>© 2024 </p>
+                    <a href='https://github.com/lucasjstn/countries-list'>
+                        Github
+                    </a>
+                    <p> | </p>
+                    <a href='https://www.linkedin.com/in/lucasjstn/'>
+                        Linkedin
+                    </a>
+                </div>
             </AppContext.Provider>
         </>
     );
