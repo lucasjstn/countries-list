@@ -73,6 +73,49 @@ const Home = () => {
         sessionStorage.setItem('page', page - 1);
     };
 
+    const showNoItemFound = () => {
+        return (
+            <div className='flex flex-col items-center justify-center my-[20vh]'>
+                <h1>Nenhum item encontrado.</h1>
+            </div>
+        );
+    };
+
+    const showItemFound = () => {
+        return (
+            <div className='flex flex-col items-center'>
+                <CountryList />
+                <div className='join'>
+                    <button
+                        onClick={handlePageDown}
+                        className='join-item btn'
+                        disabled={page === 1}
+                    >
+                        «
+                    </button>
+                    <button className='join-item btn'>Página {page}</button>
+                    <button
+                        onClick={handlePageUp}
+                        className='join-item btn'
+                        disabled={page === maxPage}
+                    >
+                        »
+                    </button>
+                </div>
+                <div className='footer flex flex-row justify-center my-5'>
+                    <p>© 2024 </p>
+                    <a href='https://github.com/lucasjstn/countries-list'>
+                        Github
+                    </a>
+                    <p> | </p>
+                    <a href='https://www.linkedin.com/in/lucasjstn/'>
+                        Linkedin
+                    </a>
+                </div>
+            </div>
+        );
+    };
+
     return (
         <>
             <AppContext.Provider
@@ -92,32 +135,9 @@ const Home = () => {
                             <span className='loading loading-spinner loading-lg'></span>
                         </div>
                     ) : filteredCountries?.length > 0 ? (
-                        <div className='flex flex-col items-center'>
-                            <CountryList />
-                            <div className='join'>
-                                <button
-                                    onClick={handlePageDown}
-                                    className='join-item btn'
-                                    disabled={page === 1}
-                                >
-                                    «
-                                </button>
-                                <button className='join-item btn'>
-                                    Página {page}
-                                </button>
-                                <button
-                                    onClick={handlePageUp}
-                                    className='join-item btn'
-                                    disabled={page === maxPage}
-                                >
-                                    »
-                                </button>
-                            </div>
-                        </div>
+                        showItemFound()
                     ) : (
-                        <div className='flex flex-col items-center justify-center my-[20vh]'>
-                            <h1>Nenhum item encontrado.</h1>
-                        </div>
+                        showNoItemFound()
                     )}
                 </main>
             </AppContext.Provider>

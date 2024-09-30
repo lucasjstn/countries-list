@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../../screens/Home/Home';
 import { ptBr } from '../../locales/pt-br';
+
 const Select = () => {
     const { countries, setPage, filter, setFilter } = useAppContext();
 
@@ -71,11 +72,12 @@ const Select = () => {
 
     return (
         <form>
-            <div className='grid grid-cols-1 md:grid-cols-2 flex-col gap-2 items-center'>
-                <div className='flex flex-row w-[70%] justify-evenly'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'>
+                {/* Filtro por região */}
+                <div className='flex flex-col'>
                     <label htmlFor='region-select'>Região:</label>
                     <select
-                        className='select select-bordered select-sm w-full max-w-xs'
+                        className='select select-bordered select-sm w-full'
                         id='region-select'
                         value={filter.selectedRegion}
                         onChange={handleRegionChange}
@@ -88,90 +90,85 @@ const Select = () => {
                         ))}
                     </select>
                 </div>
+
                 {/* Filtro por sub-região */}
-                <div>
-                    <div className='flex flex-row w-[70%] justify-evenly'>
-                        <label htmlFor='subregion-select'>Sub-região: </label>
-                        <select
-                            className='select select-bordered select-sm w-full max-w-xs'
-                            id='subregion-select'
-                            value={selectedSubRegion}
-                            onChange={handleSubRegionChange}
-                            disabled={!selectedRegion}
-                        >
-                            <option value=''>Todas as sub-regiões</option>
-                            {subRegions
-                                .filter((subregion) => {
-                                    const belongsToSelectedRegion =
-                                        countries.some(
-                                            (country) =>
-                                                country.subregion ===
-                                                    subregion &&
-                                                country.region ===
-                                                    selectedRegion
-                                        );
-                                    return belongsToSelectedRegion;
-                                })
-                                .map((subregion, index) => (
-                                    <option key={index} value={subregion}>
-                                        {ptBr.subregions[subregion] || subregion}
-                                    </option>
-                                ))}
-                        </select>
-                    </div>
-                </div>
-                {/* Filtro de população */}
-                <div>
-                    <div className='flex flex-row  w-[70%] justify-evenly'>
-                        <label htmlFor='population-select'>População: </label>
-                        <select
-                            className='select select-bordered select-sm w-full max-w-xs'
-                            id='population-select'
-                            value={selectedPopulationRange}
-                            onChange={handlePopulationChange}
-                        >
-                            <option value=''>Todas as populações</option>
-                            <option value='<1M'>Menos de 1M</option>
-                            <option value='1M-10M'>1M - 10M</option>
-                            <option value='10M-100M'>10M - 100M</option>
-                            <option value='>100M'>Mais de 100M</option>
-                        </select>
-                    </div>
+                <div className='flex flex-col'>
+                    <label htmlFor='subregion-select'>Sub-região:</label>
+                    <select
+                        className='select select-bordered select-sm w-full'
+                        id='subregion-select'
+                        value={selectedSubRegion}
+                        onChange={handleSubRegionChange}
+                        disabled={!selectedRegion}
+                    >
+                        <option value=''>Todas as sub-regiões</option>
+                        {subRegions
+                            .filter((subregion) => {
+                                const belongsToSelectedRegion = countries.some(
+                                    (country) =>
+                                        country.subregion === subregion &&
+                                        country.region === selectedRegion
+                                );
+                                return belongsToSelectedRegion;
+                            })
+                            .map((subregion, index) => (
+                                <option key={index} value={subregion}>
+                                    {ptBr.subregions[subregion] || subregion}
+                                </option>
+                            ))}
+                    </select>
                 </div>
 
-                <div>
-                    <div className='flex flex-row  w-[70%] justify-evenly'>
-                        <label htmlFor='sort-by-select'>Ordenar por: </label>
-                        <select
-                            className='select select-bordered select-sm w-full max-w-xs'
-                            id='sort-by-select'
-                            value={sortBy}
-                            onChange={handleSortByChange}
-                        >
-                            <option value='name'>Nome</option>
-                            <option value='population'>População</option>
-                            <option value='area'>Área</option>
-                        </select>
-                    </div>
+                {/* Filtro de população */}
+                <div className='flex flex-col'>
+                    <label htmlFor='population-select'>População:</label>
+                    <select
+                        className='select select-bordered select-sm w-full'
+                        id='population-select'
+                        value={selectedPopulationRange}
+                        onChange={handlePopulationChange}
+                    >
+                        <option value=''>Todas as populações</option>
+                        <option value='<1M'>Menos de 1M</option>
+                        <option value='1M-10M'>1M - 10M</option>
+                        <option value='10M-100M'>10M - 100M</option>
+                        <option value='>100M'>Mais de 100M</option>
+                    </select>
                 </div>
-                {/* Filtro de ordenação (A-Z ou Z-A para nome, crescente/decrescente para população) */}
-                <div>
-                    <div className='flex flex-row  w-[70%] justify-evenly'>
-                        <label htmlFor='sort-order-select'>Ordem: </label>
-                        <select
-                            className='select select-bordered select-sm w-full max-w-xs'
-                            id='sort-order-select'
-                            value={sortOrder}
-                            onChange={handleSortOrderChange}
-                        >
-                            <option value='asc'>Crescente</option>
-                            <option value='desc'>Decrescente</option>
-                        </select>
-                    </div>
+
+                {/* Ordenar por */}
+                <div className='flex flex-col'>
+                    <label htmlFor='sort-by-select'>Ordenar por:</label>
+                    <select
+                        className='select select-bordered select-sm w-full'
+                        id='sort-by-select'
+                        value={sortBy}
+                        onChange={handleSortByChange}
+                    >
+                        <option value='name'>Nome</option>
+                        <option value='population'>População</option>
+                        <option value='area'>Área</option>
+                    </select>
                 </div>
-                <div>
+
+                {/* Ordem crescente/decrescente */}
+                <div className='flex flex-col'>
+                    <label htmlFor='sort-order-select'>Ordem:</label>
+                    <select
+                        className='select select-bordered select-sm w-full'
+                        id='sort-order-select'
+                        value={sortOrder}
+                        onChange={handleSortOrderChange}
+                    >
+                        <option value='asc'>Crescente</option>
+                        <option value='desc'>Decrescente</option>
+                    </select>
+                </div>
+
+                {/* Botão para limpar filtros */}
+                <div className='flex flex-col justify-end'>
                     <button
-                        className='btn btn-primary'
+                        className='btn btn-primary w-full'
                         type='reset'
                         onClick={handleReset}
                     >
