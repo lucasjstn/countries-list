@@ -21,12 +21,7 @@ export const FilterCountries = (
         const matchesPopulation = filterByPopulation(country.population, selectedPopulationRange);
 
         return matchesSearch && matchesRegion && matchesSubRegion && matchesPopulation;
-        // return (
-        //     matchesSearch &&
-        //     matchesRegion &&
-        //     matchesSubRegion &&
-        //     matchesPopulation
-        // );
+     
     });
 
     return filteredCountries;
@@ -42,5 +37,5 @@ const filterByPopulation = (population, selectedPopulationRange) => {
     } else if (selectedPopulationRange === '>100M') {
         return population >= 100000000;
     }
-    return true; // Se nenhum intervalo for selecionado, mostra todos
+    return true; 
 };
