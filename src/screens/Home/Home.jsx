@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 
 export const AppContext = createContext('');
 export const useAppContext = () => useContext(AppContext);
-const URL = 'https://restcountries.com/v3.1/all';
+const URL = 'https://restcountries.com/v3.1/independent?status=true';
 
 const Home = () => {
     const [page, setPage] = useState(
